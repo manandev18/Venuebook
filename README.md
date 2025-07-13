@@ -246,7 +246,7 @@ eazyvenue/
 
 ## Support
 
-For support and questions, please contact [mananandraskar250304@gmail.com] or create an issue in the GitHub repository.
+For support and questions, please contact mananandraskar250304@gmail.com or create an issue in the GitHub repository.
 
 ---
 
