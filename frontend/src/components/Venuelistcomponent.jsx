@@ -70,16 +70,16 @@ const VenueList = () => {
 
   return (
     <div className="venue-list-container">
-      <div className="venue-list-header">
+      <div className="venue-list-header fade-in">
         <h1>Find Your Perfect Venue</h1>
-        <p>Discover amazing venues for your special events</p>
+        <p>Discover amazing venues for your special events and create unforgettable memories</p>
       </div>
 
-      <div className="filters-container">
+      <div className="filters-container slide-in">
         <div className="search-filter">
           <input
             type="text"
-            placeholder="Search venues by name or location..."
+            placeholder="Search by venue name, location, or amenities..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
@@ -87,7 +87,7 @@ const VenueList = () => {
         </div>
 
         <div className="date-filter">
-          <label htmlFor="date-filter">Filter by date:</label>
+          <label htmlFor="date-filter">📅 Available on:</label>
           <input
             id="date-filter"
             type="date"
@@ -97,19 +97,24 @@ const VenueList = () => {
             className="date-input"
           />
         </div>
+        
+        {(searchTerm || selectedDate) && (
+          <button
+            onClick={() => {
+              setSearchTerm("");
+              setSelectedDate("");
+            }}
+            className="clear-filters-button"
+          >
+            Clear Filters
+          </button>
+        )}
       </div>
 
       {filteredVenues.length === 0 ? (
         <div className="no-venues">
           <p>No venues found matching your criteria.</p>
-          {selectedDate && (
-            <button
-              onClick={() => setSelectedDate("")}
-              className="clear-filters-button"
-            >
-              Clear Date Filter
-            </button>
-          )}
+          <p>Try adjusting your search criteria or browse all available venues.</p>
         </div>
       ) : (
         <div className="venues-grid">
@@ -120,9 +125,7 @@ const VenueList = () => {
                   <img
                     src={venue.images[0]}
                     alt={venue.name}
-                    onError={(e) => {
-                      e.target.src = "/placeholder-venue.jpg";
-                    }}
+                    loading="lazy"
                   />
                 ) : (
                   <div className="placeholder-image">
@@ -134,7 +137,7 @@ const VenueList = () => {
 
               <div className="venue-info">
                 <h3 className="venue-name">{venue.name}</h3>
-                <p className="venue-description">{venue.description}</p>
+                <p className="venue-description" title={venue.description}>{venue.description}</p>
 
                 <div className="venue-details">
                   <div className="detail-item">
@@ -144,24 +147,29 @@ const VenueList = () => {
 
                   <div className="detail-item">
                     <Users size={16} />
-                    <span>Capacity: {venue.capacity}</span>
+                    <span>Up to {venue.capacity} guests</span>
                   </div>
 
                   <div className="detail-item">
                     <DollarSign size={16} />
-                    <span>${venue.pricePerDay}/day</span>
+                    <span>${venue.pricePerDay.toLocaleString()}/day</span>
                   </div>
                 </div>
 
                 {venue.amenities && venue.amenities.length > 0 && (
                   <div className="amenities">
-                    <h4>Amenities:</h4>
+                    <h4>✨ Featured Amenities:</h4>
                     <div className="amenities-list">
-                      {venue.amenities.map((amenity, index) => (
+                      {venue.amenities.slice(0, 4).map((amenity, index) => (
                         <span key={index} className="amenity-tag">
                           {amenity}
                         </span>
                       ))}
+                      {venue.amenities.length > 4 && (
+                        <span className="amenity-tag" style={{background: 'var(--text-light)'}}>
+                          +{venue.amenities.length - 4} more
+                        </span>
+                      )}
                     </div>
                   </div>
                 )}
@@ -172,7 +180,7 @@ const VenueList = () => {
                     className="book-button"
                     state={{ venue }}
                   >
-                    Book Now
+                    Book This Venue
                   </Link>
                 </div>
               </div>

@@ -154,9 +154,9 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-dashboard">
-      <div className="dashboard-header">
+      <div className="dashboard-header fade-in">
         <h1>Admin Dashboard</h1>
-        <p>Manage your venues and bookings</p>
+        <p>Manage your venues, bookings, and business operations</p>
       </div>
 
       {error && (
@@ -168,7 +168,7 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      <div className="dashboard-tabs">
+      <div className="dashboard-tabs slide-in">
         <button
           className={`tab-button ${activeTab === "venues" ? "active" : ""}`}
           onClick={() => setActiveTab("venues")}
@@ -185,10 +185,31 @@ const AdminDashboard = () => {
         </button>
       </div>
 
+      {/* Quick Stats */}
+      <div className="quick-stats" style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: '1rem',
+        marginBottom: '2rem'
+      }}>
+        <div className="stat-card" style={{background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%)', color: 'white', padding: '1.5rem', borderRadius: 'var(--radius-xl)', textAlign: 'center'}}>
+          <h3 style={{fontSize: '2rem', fontWeight: '800', marginBottom: '0.5rem'}}>{venues.length}</h3>
+          <p style={{opacity: '0.9'}}>Total Venues</p>
+        </div>
+        <div className="stat-card" style={{background: 'linear-gradient(135deg, var(--accent-color) 0%, #059669 100%)', color: 'white', padding: '1.5rem', borderRadius: 'var(--radius-xl)', textAlign: 'center'}}>
+          <h3 style={{fontSize: '2rem', fontWeight: '800', marginBottom: '0.5rem'}}>{bookings.length}</h3>
+          <p style={{opacity: '0.9'}}>Total Bookings</p>
+        </div>
+        <div className="stat-card" style={{background: 'linear-gradient(135deg, var(--secondary-color) 0%, #d97706 100%)', color: 'white', padding: '1.5rem', borderRadius: 'var(--radius-xl)', textAlign: 'center'}}>
+          <h3 style={{fontSize: '2rem', fontWeight: '800', marginBottom: '0.5rem'}}>${bookings.reduce((sum, booking) => sum + booking.totalAmount, 0).toLocaleString()}</h3>
+          <p style={{opacity: '0.9'}}>Total Revenue</p>
+        </div>
+      </div>
+
       {activeTab === "venues" && (
         <div className="venues-section">
           <div className="section-header">
-            <h2>Manage Venues</h2>
+            <h2>🏛️ Venue Management</h2>
             <button
               onClick={() => setShowAddVenue(true)}
               className="add-button"
@@ -210,7 +231,7 @@ const AdminDashboard = () => {
                         setShowAvailabilityModal(true);
                       }}
                       className="edit-button"
-                      title="Manage Availability"
+                      title="Manage Dates & Availability"
                     >
                       <Edit size={16} />
                     </button>
@@ -226,16 +247,16 @@ const AdminDashboard = () => {
 
                 <div className="venue-details">
                   <p>
-                    <strong>Location:</strong> {venue.location}
+                    <strong>📍 Location:</strong> {venue.location}
                   </p>
                   <p>
-                    <strong>Capacity:</strong> {venue.capacity}
+                    <strong>👥 Capacity:</strong> {venue.capacity} guests
                   </p>
                   <p>
-                    <strong>Price:</strong> ${venue.pricePerDay}/day
+                    <strong>💰 Price:</strong> ${venue.pricePerDay.toLocaleString()}/day
                   </p>
                   <p>
-                    <strong>Description:</strong> {venue.description}
+                    <strong>📝 Description:</strong> {venue.description}
                   </p>
 
                   {venue.amenities && venue.amenities.length > 0 && (
@@ -255,7 +276,7 @@ const AdminDashboard = () => {
                   )}
 
                   <div className="availability-info">
-                    <strong>Blocked Dates:</strong>
+                    <strong>🚫 Blocked Dates:</strong>
                     <p className="blocked-dates">
                       {getUnavailableDatesString(venue)}
                     </p>
@@ -269,7 +290,7 @@ const AdminDashboard = () => {
 
       {activeTab === "bookings" && (
         <div className="bookings-section">
-          <h2>Recent Bookings</h2>
+          <h2>📅 Recent Bookings</h2>
 
           {bookings.length === 0 ? (
             <div className="no-bookings">
@@ -280,12 +301,12 @@ const AdminDashboard = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>Customer</th>
-                    <th>Venue</th>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Booked On</th>
+                    <th>👤 Customer</th>
+                    <th>🏛️ Venue</th>
+                    <th>📅 Event Date</th>
+                    <th>💰 Amount</th>
+                    <th>📊 Status</th>
+                    <th>🕒 Booked On</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -306,7 +327,7 @@ const AdminDashboard = () => {
                           : "Unknown Venue"}
                       </td>
                       <td>{formatDate(booking.bookingDate)}</td>
-                      <td>${booking.totalAmount}</td>
+                      <td>${booking.totalAmount.toLocaleString()}</td>
                       <td>
                         <span className={`status ${booking.status}`}>
                           {booking.status}
@@ -327,7 +348,7 @@ const AdminDashboard = () => {
         <div className="modal-overlay">
           <div className="modal">
             <div className="modal-header">
-              <h3>Add New Venue</h3>
+              <h3>🏛️ Add New Venue</h3>
               <button
                 onClick={() => setShowAddVenue(false)}
                 className="close-button"
@@ -338,7 +359,7 @@ const AdminDashboard = () => {
 
             <form onSubmit={handleAddVenue} className="venue-form">
               <div className="form-group">
-                <label htmlFor="name">Venue Name *</label>
+                <label htmlFor="name">🏛️ Venue Name *</label>
                 <input
                   type="text"
                   id="name"
@@ -346,25 +367,25 @@ const AdminDashboard = () => {
                   value={newVenue.name}
                   onChange={handleInputChange}
                   required
-                  placeholder="Enter venue name"
+                  placeholder="Grand Ballroom"
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="description">Description *</label>
+                <label htmlFor="description">📝 Description *</label>
                 <textarea
                   id="description"
                   name="description"
                   value={newVenue.description}
                   onChange={handleInputChange}
                   required
-                  placeholder="Enter venue description"
+                  placeholder="Elegant ballroom perfect for weddings and corporate events..."
                   rows={3}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="location">Location *</label>
+                <label htmlFor="location">📍 Location *</label>
                 <input
                   type="text"
                   id="location"
@@ -372,13 +393,13 @@ const AdminDashboard = () => {
                   value={newVenue.location}
                   onChange={handleInputChange}
                   required
-                  placeholder="Enter venue location"
+                  placeholder="123 Main Street, Downtown"
                 />
               </div>
 
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="capacity">Capacity *</label>
+                  <label htmlFor="capacity">👥 Capacity *</label>
                   <input
                     type="number"
                     id="capacity"
@@ -387,12 +408,12 @@ const AdminDashboard = () => {
                     onChange={handleInputChange}
                     required
                     min="1"
-                    placeholder="Enter capacity"
+                    placeholder="150"
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="pricePerDay">Price per Day *</label>
+                  <label htmlFor="pricePerDay">💰 Price per Day *</label>
                   <input
                     type="number"
                     id="pricePerDay"
@@ -402,20 +423,20 @@ const AdminDashboard = () => {
                     required
                     min="0"
                     step="0.01"
-                    placeholder="Enter price"
+                    placeholder="2500.00"
                   />
                 </div>
               </div>
 
               <div className="form-group">
-                <label htmlFor="amenities">Amenities</label>
+                <label htmlFor="amenities">✨ Amenities</label>
                 <input
                   type="text"
                   id="amenities"
                   name="amenities"
                   value={newVenue.amenities}
                   onChange={handleInputChange}
-                  placeholder="Enter amenities separated by commas"
+                  placeholder="WiFi, Parking, Sound System, Catering Kitchen"
                 />
                 <small>Example: WiFi, Parking, Sound System, Catering</small>
               </div>
@@ -424,7 +445,7 @@ const AdminDashboard = () => {
                 <button type="button" onClick={() => setShowAddVenue(false)}>
                   Cancel
                 </button>
-                <button type="submit">Add Venue</button>
+                <button type="submit">🎉 Add Venue</button>
               </div>
             </form>
           </div>
@@ -436,7 +457,7 @@ const AdminDashboard = () => {
         <div className="modal-overlay">
           <div className="modal">
             <div className="modal-header">
-              <h3>Manage Availability - {selectedVenue.name}</h3>
+              <h3>📅 Manage Availability - {selectedVenue.name}</h3>
               <button
                 onClick={() => {
                   setShowAvailabilityModal(false);
@@ -454,7 +475,7 @@ const AdminDashboard = () => {
               className="availability-form"
             >
               <div className="form-group">
-                <label htmlFor="action">Action</label>
+                <label htmlFor="action">🔧 Action</label>
                 <select
                   id="action"
                   name="action"
@@ -467,7 +488,7 @@ const AdminDashboard = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="dates">Dates</label>
+                <label htmlFor="dates">📅 Dates</label>
                 <input
                   type="text"
                   id="dates"
@@ -481,7 +502,7 @@ const AdminDashboard = () => {
               </div>
 
               <div className="current-blocked-dates">
-                <h4>Currently Blocked Dates:</h4>
+                <h4>🚫 Currently Blocked Dates:</h4>
                 <p>{getUnavailableDatesString(selectedVenue)}</p>
               </div>
 
@@ -496,7 +517,7 @@ const AdminDashboard = () => {
                 >
                   Cancel
                 </button>
-                <button type="submit">Update Availability</button>
+                <button type="submit">💾 Update Availability</button>
               </div>
             </form>
           </div>

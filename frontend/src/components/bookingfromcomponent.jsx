@@ -135,17 +135,29 @@ const BookingForm = () => {
 
   return (
     <div className="booking-form-container">
-      <div className="booking-header">
+      <div className="booking-header fade-in">
         <button onClick={() => navigate("/")} className="back-button">
           <ArrowLeft size={20} />
           Back to Venues
         </button>
-        <h1>Book Your Venue</h1>
+        <h1>Complete Your Booking</h1>
       </div>
 
-      <div className="booking-content">
+      <div className="booking-content slide-in">
         <div className="venue-summary">
           <h2>{venue.name}</h2>
+          
+          {venue.images && venue.images.length > 0 && (
+            <div className="venue-image" style={{height: '200px', marginBottom: '1.5rem', borderRadius: 'var(--radius-lg)', overflow: 'hidden'}}>
+              <img
+                src={venue.images[0]}
+                alt={venue.name}
+                style={{width: '100%', height: '100%', objectFit: 'cover'}}
+                loading="lazy"
+              />
+            </div>
+          )}
+          
           <div className="venue-details">
             <div className="detail-item">
               <MapPin size={16} />
@@ -154,12 +166,12 @@ const BookingForm = () => {
 
             <div className="detail-item">
               <Users size={16} />
-              <span>Capacity: {venue.capacity}</span>
+              <span>Up to {venue.capacity} guests</span>
             </div>
 
             <div className="detail-item">
               <DollarSign size={16} />
-              <span>${venue.pricePerDay}/day</span>
+              <span>${venue.pricePerDay.toLocaleString()}/day</span>
             </div>
           </div>
 
@@ -167,7 +179,7 @@ const BookingForm = () => {
 
           {venue.amenities && venue.amenities.length > 0 && (
             <div className="amenities">
-              <h4>Amenities:</h4>
+              <h4>✨ Included Amenities:</h4>
               <div className="amenities-list">
                 {venue.amenities.map((amenity, index) => (
                   <span key={index} className="amenity-tag">
@@ -180,7 +192,7 @@ const BookingForm = () => {
         </div>
 
         <div className="booking-form">
-          <h3>Booking Details</h3>
+          <h3>📋 Your Information</h3>
 
           {error && <div className="error-message">{error}</div>}
 
@@ -194,7 +206,7 @@ const BookingForm = () => {
                 value={formData.customerName}
                 onChange={handleInputChange}
                 required
-                placeholder="Enter your full name"
+                placeholder="John Doe"
               />
             </div>
 
@@ -207,7 +219,7 @@ const BookingForm = () => {
                 value={formData.customerEmail}
                 onChange={handleInputChange}
                 required
-                placeholder="Enter your email address"
+                placeholder="john@example.com"
               />
             </div>
 
@@ -220,7 +232,7 @@ const BookingForm = () => {
                 value={formData.customerPhone}
                 onChange={handleInputChange}
                 required
-                placeholder="Enter your phone number"
+                placeholder="+1 (555) 123-4567"
               />
             </div>
 
@@ -241,6 +253,11 @@ const BookingForm = () => {
                     This date is not available. Please select another date.
                   </p>
                 )}
+              {formData.bookingDate && isDateAvailable(formData.bookingDate) && (
+                <p style={{color: 'var(--accent-color)', fontSize: '0.9rem', marginTop: '0.5rem', fontWeight: '500'}}>
+                  ✅ This date is available!
+                </p>
+              )}
             </div>
 
             <div className="booking-summary">
@@ -254,7 +271,7 @@ const BookingForm = () => {
               </div>
               <div className="summary-item">
                 <span>Total Amount:</span>
-                <span>${venue.pricePerDay}</span>
+                <span>${venue.pricePerDay.toLocaleString()}</span>
               </div>
             </div>
 
@@ -263,7 +280,7 @@ const BookingForm = () => {
               className="submit-button"
               disabled={submitting || !isDateAvailable(formData.bookingDate)}
             >
-              {submitting ? "Booking..." : "Confirm Booking"}
+              {submitting ? "Processing..." : "🎉 Confirm Booking"}
             </button>
           </form>
         </div>
