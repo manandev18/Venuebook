@@ -5,7 +5,7 @@ A modern, full-stack venue booking platform that allows users to discover, book,
 
 ## Demo
 
-[![Watch the demo](https://img.youtube.com/vi/abcd1234/0.jpg)](https://www.youtube.com/watch?v=abcd1234)
+[![Watch the demo](https://youtu.be/mi6PafnwWqw)](https://youtu.be/mi6PafnwWqw)
 
 Click the image above to watch the full demo on YouTube.
 ## Features
