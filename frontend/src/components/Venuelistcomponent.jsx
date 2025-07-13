@@ -71,8 +71,8 @@ const VenueList = () => {
   return (
     <div className="venue-list-container">
       <div className="venue-list-header fade-in">
-        <h1>Find Your Perfect Venue</h1>
-        <p>Discover amazing venues for your special events and create unforgettable memories</p>
+        <h1>Find Perfect Venues for Your Events</h1>
+        <p>Book the best venues across the city for weddings, parties, corporate events and more</p>
       </div>
 
       <div className="filters-container slide-in">

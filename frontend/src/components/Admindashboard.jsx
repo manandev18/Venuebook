@@ -155,8 +155,8 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
       <div className="dashboard-header fade-in">
-        <h1>Admin Dashboard</h1>
-        <p>Manage your venues, bookings, and business operations</p>
+        <h1>Venue Management</h1>
+        <p>Manage your venue listings and track bookings</p>
       </div>
 
       {error && (
@@ -186,30 +186,25 @@ const AdminDashboard = () => {
       </div>
 
       {/* Quick Stats */}
-      <div className="quick-stats" style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        gap: '1rem',
-        marginBottom: '2rem'
-      }}>
-        <div className="stat-card" style={{background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%)', color: 'white', padding: '1.5rem', borderRadius: 'var(--radius-xl)', textAlign: 'center'}}>
-          <h3 style={{fontSize: '2rem', fontWeight: '800', marginBottom: '0.5rem'}}>{venues.length}</h3>
-          <p style={{opacity: '0.9'}}>Total Venues</p>
+      <div className="quick-stats">
+        <div className="stat-card">
+          <h3>{venues.length}</h3>
+          <p>Total Venues</p>
         </div>
-        <div className="stat-card" style={{background: 'linear-gradient(135deg, var(--accent-color) 0%, #059669 100%)', color: 'white', padding: '1.5rem', borderRadius: 'var(--radius-xl)', textAlign: 'center'}}>
-          <h3 style={{fontSize: '2rem', fontWeight: '800', marginBottom: '0.5rem'}}>{bookings.length}</h3>
-          <p style={{opacity: '0.9'}}>Total Bookings</p>
+        <div className="stat-card">
+          <h3>{bookings.length}</h3>
+          <p>Total Bookings</p>
         </div>
-        <div className="stat-card" style={{background: 'linear-gradient(135deg, var(--secondary-color) 0%, #d97706 100%)', color: 'white', padding: '1.5rem', borderRadius: 'var(--radius-xl)', textAlign: 'center'}}>
-          <h3 style={{fontSize: '2rem', fontWeight: '800', marginBottom: '0.5rem'}}>${bookings.reduce((sum, booking) => sum + booking.totalAmount, 0).toLocaleString()}</h3>
-          <p style={{opacity: '0.9'}}>Total Revenue</p>
+        <div className="stat-card">
+          <h3>${bookings.reduce((sum, booking) => sum + booking.totalAmount, 0).toLocaleString()}</h3>
+          <p>Total Revenue</p>
         </div>
       </div>
 
       {activeTab === "venues" && (
         <div className="venues-section">
           <div className="section-header">
-            <h2>🏛️ Venue Management</h2>
+            <h2>🏛️ Your Venues</h2>
             <button
               onClick={() => setShowAddVenue(true)}
               className="add-button"

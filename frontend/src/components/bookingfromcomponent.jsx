@@ -138,9 +138,9 @@ const BookingForm = () => {
       <div className="booking-header fade-in">
         <button onClick={() => navigate("/")} className="back-button">
           <ArrowLeft size={20} />
-          Back to Venues
+          Back to Browse
         </button>
-        <h1>Complete Your Booking</h1>
+        <h1>Book Your Venue</h1>
       </div>
 
       <div className="booking-content slide-in">
