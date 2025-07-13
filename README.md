@@ -163,44 +163,6 @@ eazyvenue/
   - Device and browser information
   - Session duration and bounce rates
 
-**Technical Implementation:**
-```javascript
-// Analytics Service Structure
-const analyticsService = {
-  trackSearch: (query, filters, results) => {
-    // Log search parameters and result count
-  },
-  trackVenueView: (venueId, userId, duration) => {
-    // Track venue engagement metrics
-  },
-  trackBookingFunnel: (step, venueId, userId) => {
-    // Monitor conversion funnel
-  }
-}
-```
-
-**Database Schema:**
-```javascript
-// User Activity Schema
-{
-  userId: String,
-  sessionId: String,
-  timestamp: Date,
-  eventType: String, // 'search', 'view', 'booking_attempt'
-  metadata: {
-    searchQuery: String,
-    filters: Object,
-    venueId: String,
-    duration: Number
-  }
-}
-```
-
-**Benefits:**
-- Understand user preferences and behavior patterns
-- Optimize venue recommendations
-- Improve search functionality based on popular queries
-- Identify drop-off points in the booking process
 
 ### 2. Admin Analytics Dashboard
 
@@ -214,88 +176,11 @@ const analyticsService = {
   - Search trends and popular amenities
   - Venue performance comparisons
 
-**Dashboard Components:**
-```javascript
-// Dashboard Widgets
-const DashboardWidgets = {
-  RevenueChart: {
-    type: 'line-chart',
-    timeRange: ['7d', '30d', '90d', '1y'],
-    metrics: ['total_revenue', 'average_booking_value']
-  },
-  BookingFunnel: {
-    type: 'funnel-chart',
-    stages: ['venue_views', 'booking_attempts', 'completed_bookings']
-  },
-  PopularVenues: {
-    type: 'table',
-    sortBy: ['bookings_count', 'revenue', 'rating']
-  },
-  GeographicHeatmap: {
-    type: 'map',
-    data: 'user_locations_vs_bookings'
-  }
-}
-```
-
-**Technical Stack:**
-- **Frontend**: Chart.js or D3.js for data visualization
-- **Backend**: Aggregation pipelines in MongoDB for real-time analytics
-- **Caching**: Redis for frequently accessed analytics data
-- **Real-time Updates**: WebSocket connections for live dashboard updates
-
-**Implementation Features:**
-- Exportable reports (PDF, CSV)
-- Customizable date ranges and filters
-- Automated insights and recommendations
-- Performance alerts and notifications
-
 ### 3. Calendar View for Venue Availability
 
 **Approach:**
 - **Interactive Calendar Interface**: Implement a comprehensive calendar system for both users and admins
 - **Multi-view Calendar**: Month, week, and day views with different use cases
-
-**User-Facing Calendar:**
-```javascript
-// Calendar Component Structure
-const VenueCalendar = {
-  views: ['month', 'week', 'day'],
-  features: {
-    availabilityIndicator: true, // Green/Red/Yellow status
-    priceVariation: true, // Dynamic pricing display
-    multiVenueComparison: true, // Side-by-side calendars
-    quickBooking: true // Click-to-book functionality
-  }
-}
-```
-
-**Admin Calendar Features:**
-- **Bulk Operations**: Select multiple dates for blocking/unblocking
-- **Recurring Events**: Set up recurring maintenance or blocked periods
-- **Booking Management**: Drag-and-drop booking modifications
-- **Conflict Resolution**: Visual indicators for overlapping bookings
-- **Integration**: Sync with external calendar systems (Google Calendar, Outlook)
-
-**Technical Implementation:**
-```javascript
-// Calendar Data Structure
-{
-  venueId: ObjectId,
-  date: Date,
-  status: 'available' | 'booked' | 'blocked' | 'maintenance',
-  pricing: {
-    basePrice: Number,
-    dynamicPrice: Number, // Based on demand/season
-    discounts: Array
-  },
-  bookingDetails: {
-    customerId: ObjectId,
-    eventType: String,
-    specialRequests: String
-  }
-}
-```
 
 **Advanced Features:**
 - **Smart Suggestions**: Recommend alternative dates for unavailable slots
@@ -303,54 +188,12 @@ const VenueCalendar = {
 - **Waitlist Management**: Queue system for popular dates
 - **Calendar Sync**: Two-way sync with popular calendar applications
 
+
 ### 4. Basic Authentication for Admin and Venue Owners
 
 **Approach:**
 - **Role-Based Access Control (RBAC)**: Implement a comprehensive authentication system with multiple user roles
 - **JWT-Based Authentication**: Secure, stateless authentication mechanism
-
-**User Roles & Permissions:**
-```javascript
-const UserRoles = {
-  CUSTOMER: {
-    permissions: ['view_venues', 'create_booking', 'view_own_bookings']
-  },
-  VENUE_OWNER: {
-    permissions: [
-      'view_venues', 'manage_own_venues', 'view_venue_bookings',
-      'update_venue_availability', 'view_venue_analytics'
-    ]
-  },
-  ADMIN: {
-    permissions: [
-      'manage_all_venues', 'view_all_bookings', 'manage_users',
-      'view_system_analytics', 'system_configuration'
-    ]
-  },
-  SUPER_ADMIN: {
-    permissions: ['*'] // Full system access
-  }
-}
-```
-
-**Authentication Flow:**
-```javascript
-// Authentication Service
-const authService = {
-  register: (userData, role) => {
-    // User registration with email verification
-  },
-  login: (credentials) => {
-    // JWT token generation with role-based claims
-  },
-  refreshToken: (refreshToken) => {
-    // Token refresh mechanism
-  },
-  resetPassword: (email) => {
-    // Secure password reset flow
-  }
-}
-```
 
 **Security Features:**
 - **Multi-Factor Authentication (MFA)**: SMS/Email OTP for sensitive operations
@@ -358,29 +201,6 @@ const authService = {
 - **Password Policies**: Strong password requirements and periodic updates
 - **Audit Logging**: Track all user actions for security monitoring
 - **Rate Limiting**: Prevent brute force attacks and API abuse
-
-**Database Schema:**
-```javascript
-// User Schema
-{
-  _id: ObjectId,
-  email: String,
-  passwordHash: String,
-  role: String,
-  profile: {
-    firstName: String,
-    lastName: String,
-    phone: String,
-    avatar: String
-  },
-  venueIds: [ObjectId], // For venue owners
-  preferences: Object,
-  lastLogin: Date,
-  isActive: Boolean,
-  emailVerified: Boolean,
-  mfaEnabled: Boolean
-}
-```
 
 **Implementation Strategy:**
 1. **Phase 1**: Basic JWT authentication with role separation
