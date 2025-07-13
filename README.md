@@ -2,7 +2,13 @@
 
 A modern, full-stack venue booking platform that allows users to discover, book, and manage event venues. Built with React.js frontend and Node.js/Express backend with MongoDB database.
 
-## 🚀 Features
+
+## Demo
+
+[![Watch the demo](https://img.youtube.com/vi/abcd1234/0.jpg)](https://www.youtube.com/watch?v=abcd1234)
+
+Click the image above to watch the full demo on YouTube.
+## Features
 
 ### User Features
 - **Venue Discovery**: Browse and search venues by name, location, and amenities
@@ -18,7 +24,7 @@ A modern, full-stack venue booking platform that allows users to discover, book,
 - **Dashboard Analytics**: Quick stats showing total venues, bookings, and revenue
 - **Real-time Updates**: Instant updates when venues are booked or availability changes
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Frontend
 - **React.js** - Component-based UI framework
@@ -65,7 +71,7 @@ eazyvenue/
 └── README.md               # Project documentation
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js (v14 or higher)
@@ -117,7 +123,7 @@ eazyvenue/
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:3000/api
 
-## 📊 API Endpoints
+## API Endpoints
 
 ### Venues
 - `GET /api/venues` - Get all venues
@@ -132,7 +138,7 @@ eazyvenue/
 - `POST /api/bookings` - Create new booking
 - `GET /api/venues/:venueId/bookings` - Get bookings for specific venue
 
-## 🎯 Key Features Implementation
+## Key Features Implementation
 
 ### Real-time Availability Checking
 - Venues maintain an `unavailableDates` array with blocked dates
@@ -149,7 +155,7 @@ eazyvenue/
 - User-friendly error messages with retry functionality
 - Input validation and sanitization
 
-## 🔮 Advanced Features - Future Enhancements
+## Advanced Features - Future Enhancements
 
 ### 1. Capturing User Search Activity
 
@@ -229,21 +235,8 @@ eazyvenue/
 3. **Frontend Architecture**: Component isolation for team development
 4. **Caching Strategy**: Ready for Redis implementation
 
-## 🚀 Deployment
 
-### Production Deployment Steps:
-1. **Environment Setup**: Configure production environment variables
-2. **Database Migration**: Set up MongoDB Atlas or production database
-3. **Build Process**: Create optimized production builds
-4. **Server Configuration**: Deploy backend with PM2 or similar process manager
-5. **CDN Setup**: Serve static assets through CDN for better performance
-
-### Recommended Hosting:
-- **Frontend**: Vercel, Netlify, or AWS S3 + CloudFront
-- **Backend**: Heroku, AWS EC2, or DigitalOcean
-- **Database**: MongoDB Atlas or AWS DocumentDB
-
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -251,13 +244,9 @@ eazyvenue/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## Support
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 📞 Support
-
-For support and questions, please contact [your-email@example.com] or create an issue in the GitHub repository.
+For support and questions, please contact [mananandraskar250304@gmail.com] or create an issue in the GitHub repository.
 
 ---
 
